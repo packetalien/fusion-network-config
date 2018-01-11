@@ -8,7 +8,9 @@ This file is to configure VMWare Fusion Networking to insure IP compatibility fo
 
 # Use
 
-Copy this file to /Library/Preferences/VMWare\ Fusion/networking (overwriting the file)
+*This script will need sudo or root to make system changes, use with caution*
+
+sudo python ./vmnet-install.py
 
 # Author
 
