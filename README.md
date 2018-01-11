@@ -9,3 +9,7 @@ This file is to configure VMWare Fusion Networking to insure IP compatibility fo
 # Use
 
 Copy this file to /Library/Preferences/VMWare\ Fusion/networking (overwriting the file)
+
+# Author
+
+Richard Porter, packetalien@packetalien.com, @packetalien - twitter 
