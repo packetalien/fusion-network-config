@@ -14,6 +14,7 @@
 # This script was lightly tested and only compatible with MacOS. This
 # script should be considered raw.
 #
+# Version 0.1
 
 
 import os
