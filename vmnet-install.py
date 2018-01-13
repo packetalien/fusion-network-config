@@ -75,6 +75,19 @@ def vmnetconfig(filename):
     fusionnetbuild = fusionnetdir + "networking"
     call(["cp","-f",vmnetworkingdir,fusionnetbuild])
 
+def backupcurrentconfig():
+    user,home = getuser()
+    fusionnetdir = '/Library/Preferences/VMware Fusion/'
+    fusionnetbuild = fusionnetdir + "networking"
+    fusionbak = fusionnetbuild + filetimestamp()
+    call(["cp","-f",fusionnetbuild,fusionnetbuild])
+
+
+def filetimestamp():
+    filetimestamp = time.strftime("%Y%m%d-%H%M%S")
+    tagstamp = filetimestamp + ".bak"
+    return tagstamp
+
 # This main file is customized for Palo Alto Networks IT. It is recommended that
 # you change the basedir directories to suit your needs.
 
@@ -82,6 +95,7 @@ def main():
     if filecheck(vmnetfile):
         print("File already downloaded.")
         user,home = getuser()
+        backupcurrentconfig()
         basedir = "/Documents/Virtual Machines.localized/IT-Managed-VMs/"
         vmnetworkingdir = home + basedir + vmnetfile
         vmnetconfig(vmnetfile)
@@ -89,6 +103,7 @@ def main():
         call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"])
     else:
         user,home = getuser()
+        backupcurrentconfig()
         basedir = "/Documents/Virtual Machines.localized/IT-Managed-VMs/"
         vmnetworkingdir = home + basedir + vmnetfile
         save(fusionconf,vmnetfile)
