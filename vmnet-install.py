@@ -79,8 +79,13 @@ def backupcurrentconfig():
     user,home = getuser()
     fusionnetdir = '/Library/Preferences/VMware Fusion/'
     fusionnetbuild = fusionnetdir + "networking"
-    fusionbak = fusionnetbuild + filetimestamp()
-    call(["cp","-f",fusionnetbuild,fusionnetbuild])
+    if filecheck(fusionnetbuild):
+        fusionbak = fusionnetbuild + filetimestamp()
+        call(["cp","-f",fusionnetbuild,fusionnetbuild])
+    else:
+        print("File does not exists, have you started/installed VMWare Fusion?")
+
+
 
 
 def filetimestamp():
