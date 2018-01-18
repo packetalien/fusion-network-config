@@ -35,7 +35,7 @@ from subprocess import call
 
 vmnetfile = "fusion-vmnet-full.txt"
 fusionconf = 'https://raw.githubusercontent.com/packetalien/fusion-network-config/master/fusion-vmnet-config.txt'
-
+funsioncfgfile = 'networking'
 # Functions
 
 def reporthook(count, block_size, total_size):
@@ -62,7 +62,7 @@ def filecheck(filename):
             return True
 
 def filecheckcfg(filename):
-    basedir = '/Library/Preferences/VMware Fusion/'
+    basedir = '/Library/Preferences/'
     searchdir = basedir
     for base, dirs, files, in os.walk(searchdir):
         if filename in files:
@@ -79,12 +79,12 @@ def vmnetconfig(filename):
     fusionnetbuild = fusionnetdir + "networking"
     call(["cp","-f",vmnetworkingdir,fusionnetbuild])
 
-def backupcurrentconfig():
+def backupcurrentconfig(filename):
     fusionnetdir = '/Library/Preferences/VMware Fusion/'
     fusionnetbuild = fusionnetdir + "networking"
-    if filecheckcfg(fusionnetbuild):
+    if filecheckcfg(filename):
         fusionbak = fusionnetbuild + filetimestamp()
-        call(["cp","-f",fusionnetbuild,fusionnetbuild])
+        call(["cp","-f",fusionnetbuild,fusionbak])
     else:
         print("File does not exists, have you started/installed VMWare Fusion?")
 
@@ -99,12 +99,12 @@ def filetimestamp():
 def main():
     if filecheckcfg(vmnetfile):
         print("File already downloaded.")
-        backupcurrentconfig()
+        backupcurrentconfig(funsioncfgfile)
         vmnetconfig(vmnetfile)
         call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"])
         call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"])
     else:
-        backupcurrentconfig()
+        backupcurrentconfig(funsioncfgfile)
         vmnetworkingdir = "./"
         savefile = vmnetworkingdir + vmnetfile
         save(fusionconf,savefile)
