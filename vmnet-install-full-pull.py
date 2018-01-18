@@ -97,7 +97,7 @@ def filetimestamp():
 # you change the basedir directories to suit your needs.
 
 def main():
-    if filecheck(vmnetfile):
+    if filecheckcfg(vmnetfile):
         print("File already downloaded.")
         backupcurrentconfig()
         vmnetconfig(vmnetfile)
