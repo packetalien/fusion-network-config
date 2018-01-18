@@ -61,6 +61,13 @@ def filecheck(filename):
         if filename in files:
             return True
 
+def filecheckcfg(filename):
+    basedir = '/Library/Preferences/VMware Fusion/'
+    searchdir = basedir
+    for base, dirs, files, in os.walk(searchdir):
+        if filename in files:
+            return True
+
 def getuser():
     localuser = getpass.getuser()
     home = expanduser("~")
@@ -75,7 +82,7 @@ def vmnetconfig(filename):
 def backupcurrentconfig():
     fusionnetdir = '/Library/Preferences/VMware Fusion/'
     fusionnetbuild = fusionnetdir + "networking"
-    if filecheck(fusionnetbuild):
+    if filecheckcfg(fusionnetbuild):
         fusionbak = fusionnetbuild + filetimestamp()
         call(["cp","-f",fusionnetbuild,fusionnetbuild])
     else:
