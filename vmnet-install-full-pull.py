@@ -33,7 +33,7 @@ from subprocess import call
 
 # List of Varabiles, not used, but left for reference and configuration reasons, do not delete.
 
-vmnetfile = "fusion-vmnet-full.txt"
+vmnetfile = "fusion-vmnet-config.txt"
 fusionconf = 'https://raw.githubusercontent.com/packetalien/fusion-network-config/master/fusion-vmnet-config.txt'
 funsioncfgfile = 'networking'
 # Functions
@@ -97,7 +97,7 @@ def filetimestamp():
 # you change the basedir directories to suit your needs.
 
 def main():
-    if filecheckcfg(vmnetfile):
+    if filecheck(vmnetfile):
         print("File already downloaded.")
         backupcurrentconfig(funsioncfgfile)
         vmnetconfig(vmnetfile)
