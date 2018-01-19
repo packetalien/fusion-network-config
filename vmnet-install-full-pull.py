@@ -101,8 +101,8 @@ def main():
         print("File already downloaded.")
         backupcurrentconfig(funsioncfgfile)
         vmnetconfig(vmnetfile)
-        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"])
         call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"])
+        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"])
         call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"])
     else:
         backupcurrentconfig(funsioncfgfile)
@@ -110,8 +110,8 @@ def main():
         savefile = vmnetworkingdir + vmnetfile
         save(fusionconf,savefile)
         vmnetconfig(vmnetfile)
-        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"])
         call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"])
+        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"])
         call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"])
 
 
