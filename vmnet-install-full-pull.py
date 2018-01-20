@@ -86,7 +86,7 @@ def backupcurrentconfig(filename):
         fusionbak = fusionnetbuild + filetimestamp()
         call(["cp","-f",fusionnetbuild,fusionbak])
     else:
-        print("File does not exists, have you started/installed VMWare Fusion?")
+        print("File does not exists, have you started/installed VMWare Fusion? Please join https://join.slack.com/t/paloaltonetworkswwse/signup for troubleshooting and support.")
 
 def filetimestamp():
     filetimestamp = time.strftime("%Y%m%d-%H%M%S")
@@ -98,7 +98,7 @@ def filetimestamp():
 
 def main():
     if filecheck(vmnetfile):
-        print("File already downloaded.")
+        print("File already downloaded. Please join https://join.slack.com/t/paloaltonetworkswwse/signup for troubleshooting and support.")
         backupcurrentconfig(funsioncfgfile)
         vmnetconfig(vmnetfile)
         call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"])
