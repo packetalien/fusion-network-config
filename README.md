@@ -8,7 +8,9 @@ This file is to configure VMWare Fusion Networking to insure IP compatibility fo
 
 # Use
 
-*This script will need sudo or root to make system changes, use with caution. This script edits vmnet settings for VMware Fusion on MacOS.*
+sudo python ./vmnet-install-full-pull.py
+
+This script creates:
 
 * vmnet1 - 192.168.45.0/24
 * vmnet2 - 192.168.35.0/24
@@ -16,8 +18,6 @@ This file is to configure VMWare Fusion Networking to insure IP compatibility fo
 * vmnet4 - 192.168.15.0/24
 * vmnet5 - 192.168.5.0/24
 * vmnet8 - 192.168.55.0/24
-
-sudo python ./vmnet-install-full-pull.py
 
 # Author
 
