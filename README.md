@@ -8,7 +8,7 @@ This file is to configure VMWare Fusion Networking to insure IP compatibility fo
 
 # Use
 
-sudo python ./vmnet-install-full-pull.py
+sudo python ./vmnet-configure.py
 
 This script creates:
 
