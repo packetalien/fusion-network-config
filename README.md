@@ -21,4 +21,6 @@ This script creates:
 
 # Author
 
-Richard Porter, packetalien@packetalien.com, @packetalien - twitter packetalien - keybase
+Richard Porter, packetalien@packetalien.com 
+* @packetalien - twitter 
+* packetalien - keybase
