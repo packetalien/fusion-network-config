@@ -40,6 +40,8 @@ import requests
 import logging
 from subprocess import call
 from logging.handlers import RotatingFileHandler
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 '''
 Setting up a simple logger. Check 'controller.log' for
