@@ -1,5 +1,10 @@
 #!/usr/bin/env python
-# ========================================================================
+# Copyright (c) 2019, Palo Alto Networks
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
 # THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 # WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 # MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -7,52 +12,116 @@
 # WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-# ========================================================================
-# [1] https://blog.shichao.io/2012/10/04/progress_speed_indicator_for_urlretrieve_in_python.html
-# Functions reporthook and save adapted/copied from [1]
-#
-# This script was lightly tested and only compatible with MacOS. This
-# script should be considered raw.
-#
-# Version 0.2 localized save
+
+# Author: Richard Porter rporter@paloaltonetworks.com>
+
+'''
+Palo Alto Networks |vmnet-configure.py|
+
+This file configures VMWare Fusion Network settings.
+
+This software is provided without support, warranty, or guarantee.
+Use at your own risk.
+'''
+__author__ = "Richard Porter (@packetalien)"
+__copyright__ = "Copyright 2019, Palo Alto Networks"
+__version__ = "1.4"
+__license__ = "MIT"
+__status__ = "Production"
 
 
 import os
 import sys
 import time
 import getpass
-import urllib
-import urllib2
 import hashlib
 import fnmatch
-from os.path import expanduser
+import requests
+import logging
 from subprocess import call
+from logging.handlers import RotatingFileHandler
 
-# Script Configuration and Variables
-# Todo
+'''
+Setting up a simple logger. Check 'controller.log' for
+logger details.
+'''
 
-# List of Varabiles, not used, but left for reference and configuration reasons, do not delete.
+logger = logging.getLogger(__name__)
+logLevel = 'DEBUG'
+maxSize = 10000000
+numFiles = 10
+handler = RotatingFileHandler(
+    'controller.log', maxBytes=maxSize, backupCount=numFiles
+    )
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel("DEBUG")
+
+
+'''
+Setting context for SSL inspection compatibility. Comment
+out and remove context from urllib.urlopen().
+'''
+
+# Script Configuration and Variable
+
 
 vmnetfile = "fusion-vmnet-config.txt"
-fusionconf = 'https://raw.githubusercontent.com/packetalien/fusion-network-config/master/fusion-vmnet-config.txt'
+url = 'https://raw.githubusercontent.com/packetalien/fusion-network-config/master/fusion-vmnet-config.txt'
 funsioncfgfile = 'networking'
+
 # Functions
 
-def reporthook(count, block_size, total_size):
-    global start_time
-    if count == 0:
-        start_time = time.time()
-        return
-    duration = time.time() - start_time
-    progress_size = int(count * block_size)
-    speed = int(progress_size / (1024 * duration))
-    percent = int(count * block_size * 100 / total_size)
-    sys.stdout.write("\r...%d%%, %d MB, %d KB/s, %d seconds passed" %
-                    (percent, progress_size / (1024 * 1024), speed, duration))
-    sys.stdout.flush()
+'''
+Attribute: verify=False is set for Decryption compatibility
+for corporate use. This disables SSL Certificate Validation.
+This is considered dangerous. Disable this unless you are 
+100% sure of what you are doing! You've BEEN WARNED.
+'''
 
 def save(url, filename):
-    urllib.urlretrieve(url, filename, reporthook)
+    '''
+    Simple download function based on requests. Takes in
+    a url and a filename. Saves to directory that script
+    is executed in.
+    '''
+    with open(filename, "wb") as f:
+        print("Downloading %s" % filename)
+        logger.debug("Downloading %s" % filename) 
+        response = requests.get(url, stream=True, verify=False)
+        total_length = response.headers.get('content-length')
+        if total_length is None: # no content length header
+            f.write(response.content)
+        else:
+            dl = 0
+            total_length = int(total_length)
+            for data in response.iter_content(chunk_size=4096):
+                dl += len(data)
+                f.write(data)
+                done = int(50 * dl / total_length)
+                sys.stdout.write("\r[%s%s]" % ('*' * done, ' ' * (50-done)) )    
+                sys.stdout.flush()
+
+# TODO: Implement resource check and error handling
+def web_resource_check(url):
+    ''' Uniform Resource Locater (URL) state checker.
+    This function will ask a web server if it is alive,
+    expecting a 200 response in return. If a 200 response
+    recieved from URL function returns a True.
+
+    url: The function expects a web URL
+    There is no error checking in the variable pass in this function yet.
+    TODO: Add URL validation for the url variable.
+    '''
+    r = requests.get(url, verify=False)
+    response = r.status_code
+    logger.debug(
+        "Web resource check returned a status code of: %s" % response
+        )
+    return response
 
 def filecheck(filename):
     basedir = "./"
@@ -68,15 +137,11 @@ def filecheckcfg(filename):
         if filename in files:
             return True
 
-def getuser():
-    localuser = getpass.getuser()
-    home = expanduser("~")
-    return localuser, home
-
 def vmnetconfig(filename):
     vmnetworkingdir = "./" + filename
     fusionnetdir = '/Library/Preferences/VMware Fusion/'
     fusionnetbuild = fusionnetdir + "networking"
+    logger.debug("Executing cp function")
     call(["cp","-f",vmnetworkingdir,fusionnetbuild])
 
 def backupcurrentconfig(filename):
@@ -84,13 +149,21 @@ def backupcurrentconfig(filename):
     fusionnetbuild = fusionnetdir + "networking"
     if filecheckcfg(filename):
         fusionbak = fusionnetbuild + filetimestamp()
+        logger.debug("Backed up Fusion to file: %s"% fusionbak)
         call(["cp","-f",fusionnetbuild,fusionbak])
     else:
-        print("File does not exists, have you started/installed VMWare Fusion? Please join https://join.slack.com/t/paloaltonetworkswwse/signup for troubleshooting and support.")
+        logger.debug(
+            "Ran into an issue locating the networking config file. Is Fusion installed?"
+            )
+        print(
+            "File does not exists, have you started/installed VMWare Fusion? \
+                Please join #labinabox on Slack for troubleshooting and support."
+                )
 
 def filetimestamp():
     filetimestamp = time.strftime("%Y%m%d-%H%M%S")
     tagstamp = filetimestamp + ".bak"
+    logger.debug("Returning %s" % tagstamp)
     return tagstamp
 
 # This main file is customized for Palo Alto Networks IT. It is recommended that
@@ -98,21 +171,45 @@ def filetimestamp():
 
 def main():
     if filecheck(vmnetfile):
-        print("File already downloaded. Please join https://join.slack.com/t/paloaltonetworkswwse/signup for troubleshooting and support.")
+        print("File already downloaded. Continuing with process.")
+        logger.debug("File already downloaded. Starting backup process.")
         backupcurrentconfig(funsioncfgfile)
+        logger.debug("Current Fusion network config backed up.")
         vmnetconfig(vmnetfile)
-        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"])
-        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"])
-        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"])
+        logger.debug(
+            "New networking file loaded. Restarting network processes."
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"]
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"]
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"]
+            )
     else:
+        logger.debug("Starting backup process.")
         backupcurrentconfig(funsioncfgfile)
+        logger.debug("Backup complete, getting config file.")
         vmnetworkingdir = "./"
         savefile = vmnetworkingdir + vmnetfile
-        save(fusionconf,savefile)
+        logger.debug("Saving file: %s" % savefile)
+        save(url,savefile)
+        logger.debug("Setting up new Fusion networking config")
         vmnetconfig(vmnetfile)
-        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"])
-        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"])
-        call(["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"])
+        logger.debug(
+            "New networking file loaded. Restarting network processes."
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"]
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"]
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"]
+            )
 
 
 
