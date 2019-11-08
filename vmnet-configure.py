@@ -39,6 +39,7 @@ import fnmatch
 import requests
 import logging
 from subprocess import call
+from os.path import expanduser
 from logging.handlers import RotatingFileHandler
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -74,6 +75,9 @@ out and remove context from urllib.urlopen().
 vmnetfile = "fusion-vmnet-config.txt"
 url = 'https://raw.githubusercontent.com/packetalien/fusion-network-config/master/fusion-vmnet-config.txt'
 funsioncfgfile = 'networking'
+lab_installer_url = "https://raw.githubusercontent.com/packetalien/pan_liab_Installer/master/lab-install.py"
+lab_installer_url_sh = "https://raw.githubusercontent.com/packetalien/pan_liab_Installer/master/liab-configure.sh"
+basedir = "/Documents/Virtual Machines.localized/IT-Managed-VMs/"
 
 # Functions
 
@@ -168,10 +172,26 @@ def filetimestamp():
     logger.debug("Returning %s" % tagstamp)
     return tagstamp
 
+def getuser():
+    home = expanduser("~")
+    return home
+
+def get_managed_vm_dir():
+    basedir = "/Documents/Virtual Machines.localized/IT-Managed-VMs/"
+    itdir = getuser() + basedir
+    return itdir
+
 # This main file is customized for Palo Alto Networks IT. It is recommended that
 # you change the basedir directories to suit your needs.
 
 def main():
+    print("\n")
+    print("{:-^30s}".format("Getting installer files."))
+    save(lab_installer_url, get_managed_vm_dir() + "lab-install.py")
+    print("\n")
+    save(lab_installer_url_sh, get_managed_vm_dir() + "liab-configure.sh")
+    print("\n")
+    print("{:-^30s}".format("Starting Network Configuration."))
     if filecheck(vmnetfile):
         print("File already downloaded. Continuing with process.")
         logger.debug("File already downloaded. Starting backup process.")
