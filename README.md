@@ -8,9 +8,9 @@ This file is to configure VMWare Fusion Networking to insure IP compatibility fo
 
 # Use
 
-curl -o vmnet-configure.py https://raw.githubusercontent.com/packetalien/fusion-network-config/master/vmnet-configure.py
+curl -o $HOME/vmnet-configure.py https://raw.githubusercontent.com/packetalien/fusion-network-config/master/vmnet-configure.py
 
-sudo -H python ./vmnet-configure.py
+sudo python $HOME/vmnet-configure.py
 
 This script creates:
 
