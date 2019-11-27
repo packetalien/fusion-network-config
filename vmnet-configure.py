@@ -71,7 +71,7 @@ out and remove context from urllib.urlopen().
 
 # Script Configuration and Variable
 
-
+# TODO: Turn this into a CONF file.
 vmnetfile = "fusion-vmnet-config.txt"
 url = 'https://raw.githubusercontent.com/packetalien/fusion-network-config/master/fusion-vmnet-config.txt'
 funsioncfgfile = 'networking'
@@ -181,11 +181,30 @@ def get_managed_vm_dir():
     itdir = getuser() + basedir
     return itdir
 
+def working_directory_check():
+    '''
+    Simple function to check for base VM Directory.
+    '''
+    itdir = get_managed_vm_dir()
+    if not os.path.exists(itdir):
+        try:
+            os.makedirs(itdir)
+            print("Creating Directory now.")
+            logger.debug("Directory created as: %s" % itdir)
+        except FileExistsError:
+            logger.debug("Directory present.")
+            print("SUCCESS: Directory Located.")
+            pass
+        
+    
+
 # This main file is customized for Palo Alto Networks IT. It is recommended that
 # you change the basedir directories to suit your needs.
 
 def main():
     print("\n")
+    print("{:-^30s}".format("Checking for Working Directory."))
+    working_directory_check()
     print("{:-^30s}".format("Getting installer files."))
     save(lab_installer_url, get_managed_vm_dir() + "lab-install.py")
     print("\n")
