@@ -203,8 +203,6 @@ def working_directory_check():
 
 def main():
     print("\n")
-    print("{:-^30s}".format("Checking for Working Directory."))
-    working_directory_check()
     print("{:-^30s}".format("Getting installer files."))
     save(lab_installer_url, get_managed_vm_dir() + "lab-install.py")
     print("\n")
