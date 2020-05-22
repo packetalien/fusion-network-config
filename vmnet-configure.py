@@ -130,9 +130,11 @@ def web_resource_check(url):
     return response
 
 def filecheck(filename):
-    basedir = "./"
-    searchdir = basedir
-    for base, dirs, files, in os.walk(searchdir):
+    '''
+    Check for file.
+    Returns True or False.
+    '''
+    for base, dirs, files, in os.walk(getuser()):
         if filename in files:
             return True
 
@@ -144,7 +146,7 @@ def filecheckcfg(filename):
             return True
 
 def vmnetconfig(filename):
-    vmnetworkingdir = "./" + filename
+    vmnetworkingdir = getuser() + os.sep + filename
     fusionnetdir = '/Library/Preferences/VMware Fusion/'
     fusionnetbuild = fusionnetdir + "networking"
     logger.debug("Executing cp function")
@@ -174,29 +176,7 @@ def filetimestamp():
 
 def getuser():
     home = expanduser("~")
-    return home
-
-def get_managed_vm_dir():
-    basedir = "/Documents/Virtual Machines.localized/IT-Managed-VMs/"
-    itdir = getuser() + basedir
-    return itdir
-
-def working_directory_check():
-    '''
-    Simple function to check for base VM Directory.
-    '''
-    itdir = get_managed_vm_dir()
-    if not os.path.exists(itdir):
-        try:
-            os.makedirs(itdir)
-            print("Creating Directory now.")
-            logger.debug("Directory created as: %s" % itdir)
-        except FileExistsError:
-            logger.debug("Directory present.")
-            print("SUCCESS: Directory Located.")
-            pass
-        
-    
+    return home 
 
 # This main file is customized for Palo Alto Networks IT. It is recommended that
 # you change the basedir directories to suit your needs.
@@ -226,10 +206,8 @@ def main():
         logger.debug("Starting backup process.")
         backupcurrentconfig(funsioncfgfile)
         logger.debug("Backup complete, getting config file.")
-        vmnetworkingdir = "./"
-        savefile = vmnetworkingdir + vmnetfile
-        logger.debug("Saving file: %s" % savefile)
-        save(url,savefile)
+        logger.debug("Saving file: %s" %  (getuser() + os.sep + vmnetfile))
+        save(url, getuser() + os.sep + vmnetfile)
         logger.debug("Setting up new Fusion networking config")
         vmnetconfig(vmnetfile)
         logger.debug(
