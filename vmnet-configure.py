@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2019, Palo Alto Networks
+# Copyright (c) 2022, Palo Alto Networks
 #
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -24,8 +24,8 @@ This software is provided without support, warranty, or guarantee.
 Use at your own risk.
 '''
 __author__ = "Richard Porter (@packetalien)"
-__copyright__ = "Copyright 2019, Palo Alto Networks"
-__version__ = "1.4"
+__copyright__ = "Copyright 2022, Palo Alto Networks"
+__version__ = "1.5"
 __license__ = "MIT"
 __status__ = "Production"
 
