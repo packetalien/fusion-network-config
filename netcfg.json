@@ -7,38 +7,38 @@
     "NAT":"no"
   },
   "VNET2": {
-    "DHCP": "",
-    "NETMASK": "",
-    "SUBNET":"",
-    "VIRTUAL_ADAPTER":"",
-    "NAT":""
+    "DHCP": "no",
+    "NETMASK": "255.255.255.0",
+    "SUBNET":"192.168.35.0",
+    "VIRTUAL_ADAPTER":"yes",
+    "NAT":"no"
   },
   "VNET3": {
-    "DHCP": "",
-    "NETMASK": "",
-    "SUBNET":"",
-    "VIRTUAL_ADAPTER":"",
-    "NAT":""
+    "DHCP": "no",
+    "NETMASK": "255.255.255.0",
+    "SUBNET":"192.168.25.0",
+    "VIRTUAL_ADAPTER":"yes",
+    "NAT":"no"
   },
   "VNET4": {
-    "DHCP": "",
-    "NETMASK": "",
-    "SUBNET":"",
-    "VIRTUAL_ADAPTER":"",
-    "NAT":""
+    "DHCP": "no",
+    "NETMASK": "255.255.255.0",
+    "SUBNET":"192.168.15.0",
+    "VIRTUAL_ADAPTER":"yes",
+    "NAT":"no"
   },
   "VNET5": {
-    "DHCP": "",
-    "NETMASK": "",
-    "SUBNET":"",
-    "VIRTUAL_ADAPTER":"",
-    "NAT":""
+    "DHCP": "no",
+    "NETMASK": "255.255.255.0",
+    "SUBNET":"192.168.5.0",
+    "VIRTUAL_ADAPTER":"yes",
+    "NAT":"no"
   },
   "VNET8": {
-    "DHCP": "",
-    "NETMASK": "",
-    "SUBNET":"",
-    "VIRTUAL_ADAPTER":"",
-    "NAT":""
+    "DHCP": "yes",
+    "NETMASK": "255.255.255.0",
+    "SUBNET":"192.168.55.0",
+    "VIRTUAL_ADAPTER":"yes",
+    "NAT":"yes"
   }
 }
