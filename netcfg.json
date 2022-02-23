@@ -1,0 +1,44 @@
+{
+  "VNET1": {
+    "DHCP": "no",
+    "NETMASK": "255.255.255.0",
+    "SUBNET":"192.168.45.0",
+    "VIRTUAL_ADAPTER":"yes",
+    "NAT":"no"
+  },
+  "VNET2": {
+    "DHCP": "",
+    "NETMASK": "",
+    "SUBNET":"",
+    "VIRTUAL_ADAPTER":"",
+    "NAT":""
+  },
+  "VNET3": {
+    "DHCP": "",
+    "NETMASK": "",
+    "SUBNET":"",
+    "VIRTUAL_ADAPTER":"",
+    "NAT":""
+  },
+  "VNET4": {
+    "DHCP": "",
+    "NETMASK": "",
+    "SUBNET":"",
+    "VIRTUAL_ADAPTER":"",
+    "NAT":""
+  },
+  "VNET5": {
+    "DHCP": "",
+    "NETMASK": "",
+    "SUBNET":"",
+    "VIRTUAL_ADAPTER":"",
+    "NAT":""
+  },
+  "VNET8": {
+    "DHCP": "",
+    "NETMASK": "",
+    "SUBNET":"",
+    "VIRTUAL_ADAPTER":"",
+    "NAT":""
+  }
+}
