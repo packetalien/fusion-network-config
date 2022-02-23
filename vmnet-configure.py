@@ -30,33 +30,19 @@ __license__ = "MIT"
 __status__ = "Production"
 
 
-from distutils import errors
 import os
 import sys
 import time
 import getpass
 import hashlib
 import fnmatch
-import json
-import pip
-import importlib
+import requests
 import logging
-import webbrowser
-import shutil
-import json
-import glob
-import logging
-from shutil import rmtree
-from urllib import request
-from time import strftime
-from time import sleep
-from platform import system
 from subprocess import call
-from subprocess import Popen
-from logging.handlers import RotatingFileHandler
 from os.path import expanduser
-from os import path
-from shutil import copy
+from logging.handlers import RotatingFileHandler
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 '''
 Setting up a simple logger. Check 'controller.log' for
@@ -85,52 +71,13 @@ out and remove context from urllib.urlopen().
 
 # Script Configuration and Variable
 
-update_banner = r'''
-.=====================================================.
-||                                                   ||
-||   _       _--""--_                                ||
-||     " --""   |    |   .--.           |    ||      ||
-||   " . _|     |    |  |    |          |    ||      ||
-||   _    |  _--""--_|  |----| |.-  .-i |.-. ||      ||
-||     " --""   |    |  |    | |   |  | |  |         ||
-||   " . _|     |    |  |    | |    `-( |  | ()      ||
-||   _    |  _--""--_|             |  |              ||
-||     " --""                      `--'              ||
-||                                                   ||
-`=====================================================
-You are about to change VMWare Fusion's network
-settings. This is permenant and will DELETE
-previous networks settings. The original network file
-can be found with a .bak extension.
-
-ARE YOU SURE YOU WISH TO PROCEED? 
-
-Enter YES exactly to proceed!
-Enter NO to exit!
-'''
-
-no_banner = r'''
-Art by Shanaka Dias
-            __:.__
-           (_:..'"=
-            ::/ o o\         AHAH!
-           ;'-'   (_)     Spaceman Spiff      .
-           '-._  ;-'        wins again !  _'._|\/:
-           .:;  ;   .            .         '- '   /_
-          :.. ; ;,   \            \       _/,    "_<
-         :.|..| ;:    \            \__   '._____  _)
-         :.|.'| ||   And I wanted             _/ /
-         :.|..| :'     to delete things!     `;--:
-         '.|..|:':       _               _ _ :|_\:
-      .. _:|__| '.\.''..' ) ___________ ( )_):|_|:
-:....::''::/  | : :|''| "/ /_=_=_=_=_=/ :_[__'_\3_)
- ''      '-''-'-'.__)-'
-'''
-
 # TODO: Turn this into a CONF file.
 vmnetfile = "fusion-vmnet-config.txt"
 url = 'https://raw.githubusercontent.com/packetalien/fusion-network-config/master/fusion-vmnet-config.txt'
 funsioncfgfile = 'networking'
+lab_installer_url = "https://raw.githubusercontent.com/packetalien/pan_liab_Installer/master/lab-install.py"
+lab_installer_url_sh = "https://raw.githubusercontent.com/packetalien/pan_liab_Installer/master/liab-configure.sh"
+basedir = "/Documents/Virtual Machines.localized/IT-Managed-VMs/"
 
 # Functions
 
@@ -144,16 +91,43 @@ This is considered dangerous. Disable this unless you are
 def save(url, filename):
     '''
     Simple download function based on requests. Takes in
-    a url and a filename. Saves to directory filemane indicates.
+    a url and a filename. Saves to directory that script
+    is executed in.
     '''
-    try:
-        print("Getting File.... %s" % (filename))
-        sleep(2)
-        request.urlretrieve(url,filename)
-    except:
-        print("Soemthing went wrong in save() and the program cannot continue safely.")
-        print("\n\nExiting...")
-        exit()
+    with open(filename, "wb") as f:
+        print("Downloading %s" % filename)
+        logger.debug("Downloading %s" % filename) 
+        response = requests.get(url, stream=True, verify=False)
+        total_length = response.headers.get('content-length')
+        if total_length is None: # no content length header
+            f.write(response.content)
+        else:
+            dl = 0
+            total_length = int(total_length)
+            for data in response.iter_content(chunk_size=4096):
+                dl += len(data)
+                f.write(data)
+                done = int(50 * dl / total_length)
+                sys.stdout.write("\r[%s%s]" % ('*' * done, ' ' * (50-done)) )    
+                sys.stdout.flush()
+
+# TODO: Implement resource check and error handling
+def web_resource_check(url):
+    ''' Uniform Resource Locater (URL) state checker.
+    This function will ask a web server if it is alive,
+    expecting a 200 response in return. If a 200 response
+    recieved from URL function returns a True.
+
+    url: The function expects a web URL
+    There is no error checking in the variable pass in this function yet.
+    TODO: Add URL validation for the url variable.
+    '''
+    r = requests.get(url, verify=False)
+    response = r.status_code
+    logger.debug(
+        "Web resource check returned a status code of: %s" % response
+        )
+    return response
 
 def filecheck(filename):
     '''
@@ -172,118 +146,84 @@ def filecheckcfg(filename):
             return True
 
 def vmnetconfig(filename):
-    try:
-        vmnetworkingdir = getuser() + os.sep + filename
-        fusionnetdir = '/Library/Preferences/VMware Fusion/'
-        fusionnetbuild = fusionnetdir + "networking"
-        logger.debug("Executing cp function")
-        call(["sudo","cp","-f",vmnetworkingdir,fusionnetbuild])
-    except OSError as err:
-        logger.debug(err)
-        print(err)
+    vmnetworkingdir = getuser() + os.sep + filename
+    fusionnetdir = '/Library/Preferences/VMware Fusion/'
+    fusionnetbuild = fusionnetdir + "networking"
+    logger.debug("Executing cp function")
+    call(["cp","-f",vmnetworkingdir,fusionnetbuild])
 
 def backupcurrentconfig(filename):
-    try:
-        fusionnetdir = '/Library/Preferences/VMware Fusion/'
-        fusionnetbuild = fusionnetdir + "networking"
-        if filecheckcfg(filename):
-            fusionbak = fusionnetbuild + filetimestamp()
-            logger.debug("Backed up Fusion to file: %s"% fusionbak)
-            call(["sudo","cp","-f",fusionnetbuild,fusionbak])
-        else:
-            logger.debug(
-                "Ran into an issue locating the networking config file. Is Fusion installed?"
+    fusionnetdir = '/Library/Preferences/VMware Fusion/'
+    fusionnetbuild = fusionnetdir + "networking"
+    if filecheckcfg(filename):
+        fusionbak = fusionnetbuild + filetimestamp()
+        logger.debug("Backed up Fusion to file: %s"% fusionbak)
+        call(["cp","-f",fusionnetbuild,fusionbak])
+    else:
+        logger.debug(
+            "Ran into an issue locating the networking config file. Is Fusion installed?"
+            )
+        print(
+            "File does not exists, have you started/installed VMWare Fusion? \
+                Please join #labinabox on Slack for troubleshooting and support."
                 )
-            print(
-                "File does not exists, have you started/installed VMWare Fusion? \
-                    Please join #labinabox on Slack for troubleshooting and support."
-                )
-    except OSError as err:
-        logger.debug(err)
-        print(err)
 
 def filetimestamp():
-    try:
-        filetimestamp = time.strftime("%Y%m%d-%H%M%S")
-        tagstamp = filetimestamp + ".bak"
-        logger.debug("Returning %s" % tagstamp)
-        return tagstamp
-    except OSError as err:
-        logger.debug(err)
-        print(err)
+    filetimestamp = time.strftime("%Y%m%d-%H%M%S")
+    tagstamp = filetimestamp + ".bak"
+    logger.debug("Returning %s" % tagstamp)
+    return tagstamp
 
 def getuser():
-    try:
-        home = expanduser("~")
-        return home
-    except OSError as err:
-        logger.debug(err)
-        print(err)
-
-def verify_delete():
-    answer = None 
-    print(update_banner)
-    while answer not in ("yes", "no"): 
-        answer = input("Enter yes or no: ") 
-        if answer == "yes": 
-            print("{:-^30s}".format("Starting Network Configuration."))
-        elif answer == "no": 
-             print("Installer will Exit in 10 seconds.")
-             print("Log into Slack #labinabox for help.")
-             sleep(5)
-             print(no_banner)
-             sleep(5)
-             #exit() 
-        else: 
-        	print("Please enter yes or no.")
+    home = expanduser("~")
+    return home 
 
 # This main file is customized for Palo Alto Networks IT. It is recommended that
 # you change the basedir directories to suit your needs.
 
 def main():
     print("\n")
-    try:
-        if filecheck(vmnetfile):
-            print("File already downloaded. Continuing with process.")
-            logger.debug("File already downloaded. Starting backup process.")
-            backupcurrentconfig(funsioncfgfile)
-            logger.debug("Current Fusion network config backed up.")
-            vmnetconfig(vmnetfile)
-            logger.debug(
-                "New networking file loaded. Restarting network processes."
-                )
-            call(
-                ["sudo","/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"]
-                )
-            call(
-                ["sudo","/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"]
-                )
-            call(
-                ["sudo","/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"]
-                )
-        else:
-            logger.debug("Starting backup process.")
-            backupcurrentconfig(funsioncfgfile)
-            logger.debug("Backup complete, getting config file.")
-            logger.debug("Saving file: %s" %  (getuser() + os.sep + vmnetfile))
-            save(url, getuser() + os.sep + vmnetfile)
-            logger.debug("Setting up new Fusion networking config")
-            vmnetconfig(vmnetfile)
-            logger.debug(
-                "New networking file loaded. Restarting network processes."
-                )
-            call(
-                ["sudo","/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"]
-                )
-            call(
-                ["sudo","/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"]
-                )
-            call(
-                ["sudo","/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"]
-                )
-    except OSError as err:
-        logger.debug(err)
-        print(err)
+    print("{:-^30s}".format("Starting Network Configuration."))
+    if filecheck(vmnetfile):
+        print("File already downloaded. Continuing with process.")
+        logger.debug("File already downloaded. Starting backup process.")
+        backupcurrentconfig(funsioncfgfile)
+        logger.debug("Current Fusion network config backed up.")
+        vmnetconfig(vmnetfile)
+        logger.debug(
+            "New networking file loaded. Restarting network processes."
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"]
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"]
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"]
+            )
+    else:
+        logger.debug("Starting backup process.")
+        backupcurrentconfig(funsioncfgfile)
+        logger.debug("Backup complete, getting config file.")
+        logger.debug("Saving file: %s" %  (getuser() + os.sep + vmnetfile))
+        save(url, getuser() + os.sep + vmnetfile)
+        logger.debug("Setting up new Fusion networking config")
+        vmnetconfig(vmnetfile)
+        logger.debug(
+            "New networking file loaded. Restarting network processes."
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--stop"]
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--configure"]
+            )
+        call(
+            ["/Applications/VMware Fusion.app/Contents/Library/vmnet-cli","--start"]
+            )
+
+
 
 if __name__ == "__main__":
     main()
