@@ -1,0 +1,76 @@
+2022-02-23 00:20:26,856 - __main__ - INFO - {'VNET1': {'VNET': '1', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.45.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET2': {'VNET': '2', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.35.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET3': {'VNET': '3', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.25.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET4': {'VNET': '4', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.15.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET5': {'VNET': '5', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.5.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET8': {'VNET': '8', 'DHCP': 'yes', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.55.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'yes'}}
+2022-02-23 00:20:26,856 - __main__ - DEBUG - Not MacOS, found Darwin
+2022-02-23 00:22:18,046 - __main__ - INFO - {'VNET1': {'VNET': '1', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.45.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET2': {'VNET': '2', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.35.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET3': {'VNET': '3', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.25.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET4': {'VNET': '4', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.15.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET5': {'VNET': '5', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.5.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET8': {'VNET': '8', 'DHCP': 'yes', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.55.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'yes'}}
+2022-02-23 00:22:22,805 - __main__ - INFO - ----------------WARNING-----------------
+2022-02-23 00:22:22,808 - __main__ - INFO - Found a networking file in /Users/ricky
+2022-02-23 00:22:22,808 - __main__ - INFO - Removing for a clean build
+2022-02-23 00:22:22,808 - __main__ - DEBUG - [Errno 2] No such file or directory: '/Users/ricky/Dropbox/_source/packetalien/fusion-network-config/networking'
+2022-02-23 00:22:22,808 - __main__ - INFO - Returning 20220223-002222.bak
+2022-02-23 00:22:22,808 - __main__ - INFO - Moving /Library/Preferences/VMware Fusion/networking20220223-002222.bak
+2022-02-23 00:22:22,837 - __main__ - INFO - Moved /Library/Preferences/VMware Fusion/networking to /Library/Preferences/VMware Fusion/networking20220223-002222.bak
+2022-02-23 00:22:22,837 - __main__ - INFO - ----------------WARNING-----------------
+2022-02-23 00:22:22,837 - __main__ - INFO - Found a networking file in /Users/ricky
+2022-02-23 00:22:22,837 - __main__ - INFO - Removing for a clean build
+2022-02-23 00:22:22,837 - __main__ - DEBUG - [Errno 2] No such file or directory: '/Users/ricky/Dropbox/_source/packetalien/fusion-network-config/networking'
+2022-02-23 00:22:22,838 - __main__ - DEBUG - Ran netcheck()
+2022-02-23 00:22:22,838 - __main__ - INFO - ---Building Network from JSON config----
+2022-02-23 00:22:22,897 - __main__ - INFO - Moved /Users/rickynetworking to /Library/Preferences/VMware Fusion/networking
+2022-02-23 00:25:18,547 - __main__ - INFO - {'VNET1': {'VNET': '1', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.45.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET2': {'VNET': '2', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.35.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET3': {'VNET': '3', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.25.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET4': {'VNET': '4', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.15.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET5': {'VNET': '5', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.5.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET8': {'VNET': '8', 'DHCP': 'yes', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.55.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'yes'}}
+2022-02-23 00:25:18,778 - __main__ - INFO - Stopped VMWare Fusion
+2022-02-23 00:25:18,820 - __main__ - INFO - ----------------WARNING-----------------
+2022-02-23 00:25:18,821 - __main__ - INFO - Found a networking file in /Users/ricky
+2022-02-23 00:25:18,821 - __main__ - INFO - Removing for a clean build
+2022-02-23 00:25:18,821 - __main__ - INFO - Returning 20220223-002518.bak
+2022-02-23 00:25:18,821 - __main__ - INFO - Moving /Library/Preferences/VMware Fusion/networking20220223-002518.bak
+2022-02-23 00:25:18,852 - __main__ - INFO - Moved /Library/Preferences/VMware Fusion/networking to /Library/Preferences/VMware Fusion/networking20220223-002518.bak
+2022-02-23 00:25:18,853 - __main__ - INFO - ----------------WARNING-----------------
+2022-02-23 00:25:18,853 - __main__ - INFO - Found a networking file in /Users/ricky
+2022-02-23 00:25:18,853 - __main__ - INFO - Removing for a clean build
+2022-02-23 00:25:18,853 - __main__ - DEBUG - [Errno 2] No such file or directory: '/Users/ricky/Dropbox/_source/packetalien/fusion-network-config/networking'
+2022-02-23 00:25:18,853 - __main__ - DEBUG - Ran netcheck()
+2022-02-23 00:25:18,854 - __main__ - INFO - ---Building Network from JSON config----
+2022-02-23 00:25:18,885 - __main__ - INFO - Moved /Users/rickynetworking to /Library/Preferences/VMware Fusion/networking
+2022-02-23 00:25:20,588 - __main__ - INFO - Started VMWare Fusion
+2022-02-23 00:28:57,097 - fusionNet - INFO - {'VNET1': {'VNET': '1', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.45.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET2': {'VNET': '2', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.35.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET3': {'VNET': '3', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.25.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET4': {'VNET': '4', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.15.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET5': {'VNET': '5', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.5.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET8': {'VNET': '8', 'DHCP': 'yes', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.55.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'yes'}}
+2022-02-23 00:29:56,624 - fusionNet - INFO - Stopped VMWare Fusion
+2022-02-23 00:30:02,973 - fusionNet - INFO - ----------------WARNING-----------------
+2022-02-23 00:30:02,973 - fusionNet - INFO - Found a networking file in /Users/ricky
+2022-02-23 00:30:02,973 - fusionNet - INFO - Removing for a clean build
+2022-02-23 00:30:21,417 - fusionNet - INFO - Returning 20220223-003021.bak
+2022-02-23 00:30:21,417 - fusionNet - INFO - Moving /Library/Preferences/VMware Fusion/networking20220223-003021.bak
+2022-02-23 00:30:42,662 - fusionNet - INFO - Moved /Library/Preferences/VMware Fusion/networking to /Library/Preferences/VMware Fusion/networking20220223-003021.bak
+2022-02-23 00:31:43,340 - __main__ - DEBUG - Ran netcheck()
+2022-02-23 00:31:43,342 - __main__ - INFO - ---Building Network from JSON config----
+2022-02-23 00:32:33,075 - fusionNet - INFO - {'VNET1': {'VNET': '1', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.45.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET2': {'VNET': '2', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.35.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET3': {'VNET': '3', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.25.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET4': {'VNET': '4', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.15.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET5': {'VNET': '5', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.5.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET8': {'VNET': '8', 'DHCP': 'yes', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.55.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'yes'}}
+2022-02-23 00:33:11,524 - fusionNet - DEBUG - Ran netcheck()
+2022-02-23 00:33:11,525 - fusionNet - INFO - ---Building Network from JSON config----
+2022-02-23 00:34:31,331 - fusionNet - DEBUG - Ran netcheck()
+2022-02-23 00:34:31,331 - fusionNet - INFO - ---Building Network from JSON config----
+2022-02-23 00:37:21,970 - __main__ - INFO - {'VNET1': {'VNET': '1', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.45.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET2': {'VNET': '2', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.35.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET3': {'VNET': '3', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.25.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET4': {'VNET': '4', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.15.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET5': {'VNET': '5', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.5.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET8': {'VNET': '8', 'DHCP': 'yes', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.55.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'yes'}}
+2022-02-23 00:37:22,111 - __main__ - INFO - Stopped VMWare Fusion
+2022-02-23 00:37:27,808 - __main__ - INFO - ----------------WARNING-----------------
+2022-02-23 00:37:27,808 - __main__ - INFO - Found a networking file in /Users/ricky
+2022-02-23 00:37:27,808 - __main__ - INFO - Removing for a clean build
+2022-02-23 00:37:27,809 - __main__ - INFO - Returning 20220223-003727.bak
+2022-02-23 00:37:27,809 - __main__ - INFO - Moving /Library/Preferences/VMware Fusion/networking20220223-003727.bak
+2022-02-23 00:37:27,827 - __main__ - INFO - Moved /Library/Preferences/VMware Fusion/networking to /Library/Preferences/VMware Fusion/networking20220223-003727.bak
+2022-02-23 00:37:27,827 - __main__ - DEBUG - Ran netcheck()
+2022-02-23 00:37:27,828 - __main__ - INFO - ---Building Network from JSON config----
+2022-02-23 00:37:27,846 - __main__ - INFO - Moved /Users/ricky/networking to /Library/Preferences/VMware Fusion/networking
+2022-02-23 00:37:28,993 - __main__ - INFO - Started VMWare Fusion
+2022-02-23 00:39:19,893 - fusionNet - INFO - {'VNET1': {'VNET': '1', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.45.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET2': {'VNET': '2', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.35.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET3': {'VNET': '3', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.25.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET4': {'VNET': '4', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.15.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET5': {'VNET': '5', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.5.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET8': {'VNET': '8', 'DHCP': 'yes', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.55.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'yes'}}
+2022-02-23 00:39:49,715 - fusionNet - DEBUG - Ran netcheck()
+2022-02-23 00:39:49,716 - fusionNet - INFO - ---Building Network from JSON config----
+2022-02-23 00:40:54,797 - fusionNet - INFO - ----------------WARNING-----------------
+2022-02-23 00:40:54,797 - fusionNet - INFO - Found a networking file in /Users/ricky
+2022-02-23 00:40:54,797 - fusionNet - INFO - Removing for a clean build
+2022-02-23 00:41:11,015 - __main__ - INFO - {'VNET1': {'VNET': '1', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.45.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET2': {'VNET': '2', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.35.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET3': {'VNET': '3', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.25.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET4': {'VNET': '4', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.15.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET5': {'VNET': '5', 'DHCP': 'no', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.5.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'no'}, 'VNET8': {'VNET': '8', 'DHCP': 'yes', 'NETMASK': '255.255.255.0', 'SUBNET': '192.168.55.0', 'VIRTUAL_ADAPTER': 'yes', 'NAT': 'yes'}}
+2022-02-23 00:41:11,178 - __main__ - INFO - Stopped VMWare Fusion
+2022-02-23 00:41:11,204 - __main__ - INFO - Returning 20220223-004111.bak
+2022-02-23 00:41:11,204 - __main__ - INFO - Moving /Library/Preferences/VMware Fusion/networking20220223-004111.bak
+2022-02-23 00:41:11,225 - __main__ - INFO - Moved /Library/Preferences/VMware Fusion/networking to /Library/Preferences/VMware Fusion/networking20220223-004111.bak
+2022-02-23 00:41:11,226 - __main__ - DEBUG - Ran netcheck()
+2022-02-23 00:41:11,226 - __main__ - INFO - ---Building Network from JSON config----
+2022-02-23 00:41:11,247 - __main__ - INFO - Moved /Users/ricky/networking to /Library/Preferences/VMware Fusion/networking
+2022-02-23 00:41:12,490 - __main__ - INFO - Started VMWare Fusion
+2022-02-23 00:41:15,458 - __main__ - DEBUG - [Errno 2] No such file or directory: '/Users/ricky/networking'

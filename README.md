@@ -1,7 +1,3 @@
-# fusion-network-config
-
-VMWare Fusion Networking Config Baseline
-
 # Description
 
 This file is to configure VMWare Fusion Networking to insure IP compatibility for Virtual Machine Sharing. It is intended for Palo Alto Networks Systems Engineers, however, open to anyone. The goal is to insure that networking within the local virtual enviroment matches for lab exchange compatibility.
@@ -10,7 +6,7 @@ This file is to configure VMWare Fusion Networking to insure IP compatibility fo
 
 curl -o $HOME/vmnet-configure.py https://raw.githubusercontent.com/packetalien/fusion-network-config/master/vmnet-configure.py
 
-sudo python $HOME/vmnet-configure.py
+python3 $HOME/vmnet-configure.py
 
 This script creates:
 
@@ -24,5 +20,4 @@ This script creates:
 # Author
 
 Richard Porter, packetalien@packetalien.com 
-* @packetalien - twitter 
-* packetalien - keybase
+

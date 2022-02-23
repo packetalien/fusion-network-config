@@ -25,9 +25,10 @@ Use at your own risk.
 '''
 __author__ = "Richard Porter (@packetalien)"
 __copyright__ = "Copyright 2022, Palo Alto Networks"
-__version__ = "1.6"
+__version__ = "1.0"
 __license__ = "MIT"
 __status__ = "Production"
+
 
 import os
 import shutil
