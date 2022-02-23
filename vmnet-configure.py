@@ -277,7 +277,7 @@ def main():
             netstop()
             netconfigure()
             netstart()
-            shutil.rmtree(home + os.sep + "networking")
+            #shutil.rmtree(home + os.sep + "networking")
         else:
             logger.debug("Not MacOS, found %s" % system())
             print("Not MacOS, found %s" % system())
