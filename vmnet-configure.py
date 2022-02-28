@@ -39,6 +39,7 @@ import hashlib
 import fnmatch
 import logging
 import json
+import ssl
 from shutil import rmtree
 from urllib import request
 from time import strftime
@@ -69,6 +70,9 @@ logger.setLevel("DEBUG")
 netCFG = "https://raw.githubusercontent.com/packetalien/fusion-network-config/master/netcfg.json"
 netfile = "/Library/Preferences/VMware Fusion/networking"
 netfileheader = "VERSION=1,0"
+
+# TODO: Fix this after SE Summit
+ssl._create_default_https_context = ssl._create_unverified_context
 
 def getuser():
     try:
